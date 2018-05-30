@@ -32,7 +32,7 @@ module Sidekiq
           @statsd       = opts[:statsd] || ::Datadog::Statsd.new(statsd_host, statsd_port)
           @tags         = opts[:tags] || []
 
-          if @tags.none? {|t| t =~ /^host\:/ }
+          if @tags.none? {|t| t =~ /^host\:/ } && !opts[:no_host_tag]
             @tags.push("host:#{hostname}")
           end
 
